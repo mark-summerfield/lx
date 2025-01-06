@@ -18,4 +18,20 @@ function Tbl.deepcopy(old_tbl)
     return new_tbl
 end
 
+function Tbl.keys(tbl)
+    local list = {}
+    for key in pairs(tbl) do
+        table.insert(list, key)
+    end
+    return list
+end
+
+function Tbl.values(tbl)
+    local list = {}
+    for _, value in pairs(tbl) do
+        table.insert(list, value)
+    end
+    return list
+end
+
 return Tbl

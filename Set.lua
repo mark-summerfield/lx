@@ -1,12 +1,6 @@
 #!/usr/bin/env lua
 
-local function to_array(hash)
-    local list = {}
-    for key in pairs(hash) do
-        table.insert(list, key)
-    end
-    return list
-end
+Tbl = require("Tbl")
 
 -- Set lets you store unique values of any type
 -- @param list {table} or empty
@@ -104,7 +98,7 @@ local function Set(list)
     -- @param {Set[]}
     -- @returns Set
     self.union = function(...)
-        local union = Set(to_array(self.items_))
+        local union = Set(Tbl.keys(self.items_))
         for _, set in ipairs({ ... }) do
             set.each(function(item)
                 union.add(item)
@@ -157,7 +151,7 @@ local function Set(list)
     -- @param {Set}
     -- @returns {Set}
     self.symmetric_difference = function(set)
-        local difference = Set(to_array(self.items_))
+        local difference = Set(Tbl.keys(self.items_))
         set.each(function(item)
             if difference.contains(item) then
                 difference.remove(item)
