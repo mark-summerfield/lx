@@ -1,11 +1,11 @@
 #!/usr/bin/env lua
 
-Tbl = require("Tbl")
+local Tbl = require("Tbl")
 
 local Set = {}
 
 function Set:new(...)
-    set = { items_ = {}, size_ = 0 }
+    local set = { items_ = {}, size_ = 0 }
     self.__index = Set
     setmetatable(set, Set)
     set:add(...)

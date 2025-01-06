@@ -1,12 +1,12 @@
 #!/usr/bin/env lua
 
-Set = require("Set")
-SetX = require("SetX")
+local Set = require("Set")
+local SetX = require("SetX")
 
 local ok = 0
 local total = 0
 
-function check(x, ...)
+local function check(x, ...)
     total = total + 1
     if x then
         ok = ok + 1
@@ -17,10 +17,10 @@ end
 
 -- Set
 print("---- Set -----")
-even = Set(2, 4, 6, 8)
+local even = Set(2, 4, 6, 8)
 check("{2 4 6 8}" == even.tostring(), even)
 check(#even == 4, 4)
-odd = Set(1, 3, 5, 7, 9)
+local odd = Set(1, 3, 5, 7, 9)
 check("{1 3 5 7 9}" == odd.tostring(), odd)
 check(#odd == 5, 5)
 even.add(10)
@@ -33,7 +33,7 @@ check(even.contains(8), true)
 check(not even.contains(9), false)
 check(odd.contains(1), true)
 check(not odd.contains(2), false)
-e2 = even.copy()
+local e2 = even.copy()
 check(e2 == even, true)
 check(e2 == odd, false)
 check("{10 2 4 6 8}" == e2.tostring(), e2)

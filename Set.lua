@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-Tbl = require("Tbl")
+local Tbl = require("Tbl")
 
 -- Set lets you store unique values of any type
 -- @param list {table} or empty
