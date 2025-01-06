@@ -18,3 +18,5 @@ function Set:add(...)
         end
     end
 end
+
+return Set
