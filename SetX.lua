@@ -7,6 +7,7 @@ local Set = {}
 function Set:new(...)
     local set = { items_ = {}, size_ = 0 }
     self.__index = Set
+    -- tostring()
     setmetatable(set, Set)
     set:add(...)
     return set
