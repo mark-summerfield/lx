@@ -4,7 +4,9 @@ local lx = {}
 
 -- Strings
 
-function lx.starts_with(s, start) return s:sub(1, #start) == start end
+function lx.starts_with(s, start)
+    return s:sub(1, #start) == start
+end
 
 function lx.ends_with(s, ending)
     return ending == "" or s:sub() == s:sub(-#ending) == ending
