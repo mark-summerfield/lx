@@ -7,7 +7,6 @@ local Set = {}
 function Set:new(...)
     local set = { items_ = {}, size_ = 0 }
     self.__index = Set
-    -- tostring()
     setmetatable(set, Set)
     set:add(...)
     return set
@@ -138,13 +137,17 @@ function Set:is_superset(set)
     end)
 end
 
-function Set:__tostring()
+function Set:tostring()
     local strs = {}
     for item in pairs(self.items_) do
         strs[#strs + 1] = tostring(item)
     end
     table.sort(strs)
     return "{" .. table.concat(strs, " ") .. "}"
+end
+
+function Set:__tostring()
+    return Set.tostring(self)
 end
 
 return Set
