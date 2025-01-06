@@ -5,7 +5,7 @@ Tbl = require("Tbl")
 -- Set lets you store unique values of any type
 -- @param list {table} or empty
 -- @returns {table}
-local function Set(list)
+local function Set(...)
     local self = {}
 
     -- Items held by Set
@@ -15,13 +15,6 @@ local function Set(list)
     -- Current Set length; access using #set
     -- @type {number}
     self.size_ = 0
-
-    if type(list) == "table" then
-        for _, item in ipairs(list) do
-            self.items_[item] = true
-            self.size_ = self.size_ + 1
-        end
-    end
 
     -- Adds values to the Set object
     -- @param values; one or more of {any}
@@ -182,9 +175,18 @@ local function Set(list)
         return "{" .. table.concat(strs, " ") .. "}"
     end
 
+    self.equal_ = function(other)
+        if self == other then return true end
+        if self.size_ ~= #other then return false end
+        return Tbl.deepequal(self.items_, other.items_)
+    end
+
+    self.add(...)
+
     return setmetatable(self, {
         __band = self.intersection,
         __bor = self.union,
+        __eq = self.equal_,
         __index = function()
             error("use Set.contains()")
         end,
