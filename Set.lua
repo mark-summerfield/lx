@@ -68,6 +68,16 @@ local function Set(list)
         return false
     end
 
+    -- Shallow copies the set (equivalent to deepcopy for string and
+    -- number items)
+    self.copy = function()
+        local set = Set()
+        for item in pairs(self.items_) do
+            set.add(item)
+        end
+        return set
+    end
+
     -- Calls callback once for each item present in the Set object
     -- in no particular order
     -- @param callback {function}
