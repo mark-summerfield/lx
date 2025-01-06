@@ -1,11 +1,11 @@
 #!/usr/bin/env lua
 
 local function to_array(hash)
-    local output = {}
+    local list = {}
     for key in pairs(hash) do
-        table.insert(output, key)
+        table.insert(list, key)
     end
-    return output
+    return list
 end
 
 -- Set lets you store unique values of any type
