@@ -2,14 +2,14 @@
 
 Tbl = require("Tbl")
 
-local Set = { items_ = {}, size_ = 0 }
+local Set = {}
 
 function Set:new(...)
-    obj = {}
-    self.__index = self
-    setmetatable(obj, self)
-    obj:add(...)
-    return obj
+    set = { items_ = {}, size_ = 0 }
+    self.__index = Set
+    setmetatable(set, Set)
+    set:add(...)
+    return set
 end
 
 function Set:__len()
@@ -137,7 +137,7 @@ function Set:is_superset(set)
     end)
 end
 
-function Set:tostring()
+function Set:__tostring()
     local strs = {}
     for item in pairs(self.items_) do
         strs[#strs + 1] = tostring(item)
