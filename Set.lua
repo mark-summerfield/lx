@@ -161,13 +161,22 @@ function Set:tostring()
 end
 
 function Set:random_item()
-    local index = math.random(#self.items_ + 1)
+    local index = math.random(1, self.size_)
     local i = 1
     for item in pairs(self.items_) do
         if i == index then return item end
         i = i + 1
     end
     error("no random key found")
+end
+
+function Set:iter()
+    return function()
+        for item in pairs(self.items_) do
+            return item
+        end
+        return nil
+    end
 end
 
 return Set

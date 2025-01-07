@@ -93,6 +93,25 @@ check(odd:is_subset(c))
 check(c:is_superset(odd))
 check(not c:is_disjoint(odd))
 check(c:is_disjoint(Set:new(99)))
+local seen = { a = 0, b = 0, c = 0, d = 0, e = 0, f = 0 }
+a = Set:new("a", "b", "c", "d", "e", "f")
+while true do
+    local item = a:random_item()
+    seen[item] = seen[item] + 1
+    local done = true
+    for _, value in pairs(seen) do
+        if value == 0 then done = false end
+    end
+    if done then break end
+end
+--[[ -- TODO
+local strs = {}
+for x in a:iter() do
+    print(x)
+    table.insert(strs, x)
+end
+check("a b c d e f" == table.concat(strs, " "))
+]]
 
 -- Report
 local message = "OK"

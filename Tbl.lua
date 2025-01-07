@@ -18,6 +18,15 @@ function Tbl.deepcopy(old_tbl)
     return new_tbl
 end
 
+function Tbl.tostring(tbl)
+    local strs = {}
+    for key, value in pairs(tbl) do
+        table.insert(strs, tostring(key) .. "=" .. tostring(value))
+    end
+    table.sort(strs)
+    return "{" .. table.concat(strs, ", ") .. "}"
+end
+
 function Tbl.keys(tbl)
     local list = {}
     for key in pairs(tbl) do
@@ -34,17 +43,33 @@ function Tbl.values(tbl)
     return list
 end
 
-function Tbl.random_key(tbl)
-    local index = math.random(#tbl + 1)
-    local i = 1
-    for item in pairs(tbl) do
-        if i == index then return item end
-        i = i + 1
+function Tbl.keystrings(tbl)
+    local list = {}
+    for key in pairs(tbl) do
+        table.insert(list, '"' .. tostring(key) .. '"')
     end
-    error("no random key found")
+    table.sort(list)
+    return table.concat(list, " ")
 end
 
---- deeply compare two objects
+function Tbl.valuestrings(tbl)
+    local list = {}
+    for _, value in pairs(tbl) do
+        table.insert(list, '"' .. tostring(value) .. '"')
+    end
+    table.sort(list)
+    return table.concat(list, " ")
+end
+
+function Tbl.random_key(tbl)
+    local list = {}
+    for item in pairs(tbl) do
+        table.insert(list, item)
+    end
+    return list[math.random(1, #list)]
+end
+
+--- unreliably deeply compare two objects
 function Tbl.deepequal(obj1, obj2, ignore_mt)
     if obj1 == obj2 then -- same object
         return true

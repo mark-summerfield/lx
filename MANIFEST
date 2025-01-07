@@ -1,3 +1,4 @@
+# TODO rethink iter()
 Set.lua
 Str.lua
 Tbl.lua
