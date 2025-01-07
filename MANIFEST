@@ -3,6 +3,8 @@ Str.lua
 Tbl.lua
 
 set_test.lua
+str_test.lua
+tbl_test.lua
 
 st.sh
 
