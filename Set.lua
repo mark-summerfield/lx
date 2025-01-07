@@ -1,6 +1,39 @@
 #!/usr/bin/env lua
 
-local Tbl = require("Tbl")
+-- local Tbl = require("Tbl") -- TODO reinstate
+
+local function deepequal(obj1, obj2, ignore_mt) -- TODO delete once require is reinstated
+    if obj1 == obj2 then -- same object
+        return true
+    end
+    local obj1_type = type(obj1)
+    local obj2_type = type(obj2)
+    if obj1_type ~= obj2_type then --- different type
+        return false
+    end
+    if obj1_type ~= "table" then --- same type but not tables
+        return false
+    end
+    if not ignore_mt then -- use metatable method
+        local mt1 = getmetatable(obj1)
+        if mt1 and mt1.__eq then --compare using built in method
+            return obj1 == obj2
+        end
+    end
+    for key1, value1 in pairs(obj1) do -- iterate over obj1
+        local value2 = obj2[key1]
+        if
+            value2 == nil
+            or deepequal(value1, value2, ignore_mt) == false
+        then
+            return false
+        end
+    end
+    for key2, _ in pairs(obj2) do --- check obj2 keys not in obj1
+        if obj1[key2] == nil then return false end
+    end
+    return true
+end
 
 local Set = {}
 
@@ -21,7 +54,7 @@ end
 
 function Set:__eq(other)
     if self.size_ ~= #other then return false end
-    return Tbl.deepequal(self.items_, other.items_)
+    return deepequal(self.items_, other.items_)
 end
 
 function Set:add(...)
