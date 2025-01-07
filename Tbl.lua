@@ -36,8 +36,10 @@ end
 
 function Tbl.random_key(tbl)
     local index = math.random(#tbl + 1)
-    for i, key in ipairs(tbl) do
-        if i == index then return key end
+    local i = 1
+    for item in pairs(tbl) do
+        if i == index then return item end
+        i = i + 1
     end
     error("no random key found")
 end
