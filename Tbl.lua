@@ -34,6 +34,14 @@ function Tbl.values(tbl)
     return list
 end
 
+function Tbl.random_key(tbl)
+    local index = math.random(#tbl + 1)
+    for i, key in ipairs(tbl) do
+        if i == index then return key end
+    end
+    error("no random key found")
+end
+
 --- deeply compare two objects
 function Tbl.deepequal(obj1, obj2, ignore_mt)
     if obj1 == obj2 then -- same object
