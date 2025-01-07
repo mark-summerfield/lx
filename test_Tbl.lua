@@ -14,9 +14,8 @@ local function check(expr, msg)
     end
 end
 
-
 -- Report
 local message = "OK"
 if ok ~= total then message = "FAIL" end
-print("TODO tbl_test.lua") -- DELETE and reinstate following line
--- io.write(ok, "/", total, " ", message, "\n")
+print("TODO test_Tbl.lua") -- DELETE and reinstate following line
+-- io.write("Tbl ", ok, "/", total, " ", message, "\n")

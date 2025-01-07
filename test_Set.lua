@@ -97,4 +97,4 @@ check(c:is_disjoint(Set:new(99)))
 -- Report
 local message = "OK"
 if ok ~= total then message = "FAIL" end
-io.write(ok, "/", total, " ", message, "\n")
+io.write("Set ", ok, "/", total, " ", message, "\n")
