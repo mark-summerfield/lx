@@ -1,14 +1,8 @@
-# TODO
-# - set_test.lua using ? (copy & adapt golib/set tests)?
-# - SetX.lua use the simpler non-closure syntax
-# - if SetX is successful use it to replace Set.lua
-#   (keeping the name Set.lua of course)
-set_test.lua
-SetX.lua
 Set.lua
-
 Str.lua
 Tbl.lua
+
+set_test.lua
 
 st.sh
 

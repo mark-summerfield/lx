@@ -2,202 +2,129 @@
 
 local Tbl = require("Tbl")
 
--- Set lets you store unique values of any type
--- @param list {table} or empty
--- @returns {table}
-local function Set(...)
-    local self = {}
+local Set = {}
 
-    -- Items held by Set
-    -- @type {table}
-    self.items_ = {}
+function Set:new(...)
+    local set = { items_ = {}, size_ = 0 }
+    self.__index = Set
+    self.__tostring = Set.tostring
+    self.__band = Set.intersect
+    self.__bor = Set.union
+    setmetatable(set, Set)
+    set:add(...)
+    return set
+end
 
-    -- Current Set length; access using #set
-    -- @type {number}
-    self.size_ = 0
+function Set:__len()
+    return self.size_
+end
 
-    -- Adds values to the Set object
-    -- @param values; one or more of {any}
-    -- @returns {void}
-    self.add = function(...)
-        for _, item in ipairs({ ... }) do
-            if not self.items_[item] then
-                self.items_[item] = true
-                self.size_ = self.size_ + 1
-            end
+function Set:__eq(other)
+    if self.size_ ~= #other then return false end
+    return Tbl.deepequal(self.items_, other.items_)
+end
+
+function Set:add(...)
+    for _, item in ipairs({ ... }) do
+        if not self.items_[item] then
+            self.items_[item] = true
+            self.size_ = self.size_ + 1
         end
     end
+end
 
-    -- Checks if item is present in the Set object or not
-    -- @param item {any}
-    -- @returns {boolean}
-    self.contains = function(item)
-        return self.items_[item] == true
-    end
+function Set:contains(item)
+    return self.items_[item] == true
+end
 
-    -- Removes all items from the Set object
-    -- @returns {void}
-    self.clear = function()
-        self.items_ = {}
-        self.size_ = 0
-    end
+function Set:clear()
+    self.items_ = {}
+    self.size_ = 0
+end
 
-    -- Removes item from the Set object and returns a boolean value
-    -- asserting whether item was removed or not
-    -- @param item {any}
-    -- @returns {boolean}
-    self.remove = function(item)
+function Set:remove(...)
+    local removed = 0
+    for _, item in ipairs({ ... }) do
         if self.items_[item] then
             self.items_[item] = nil
             self.size_ = self.size_ - 1
-            return true
-        end
-        return false
-    end
-
-    -- Shallow copies the set (equivalent to deepcopy for string and
-    -- number items)
-    self.copy = function()
-        local set = Set()
-        for item in pairs(self.items_) do
-            set.add(item)
-        end
-        return set
-    end
-
-    -- Calls callback once for each item present in the Set object
-    -- in no particular order
-    -- @param callback {function}
-    -- @returns {void}
-    self.each = function(callback)
-        for item in pairs(self.items_) do
-            callback(item)
+            removed = removed + 1
         end
     end
+    return removed
+end
 
-    -- Returns true whether all items pass the test provided by the
-    -- callback function
-    -- @param callback {function}
-    -- @returns {boolean}
-    self.every = function(callback)
-        for item in pairs(self.items_) do
-            if not callback(item) then return false end
-        end
-        return true
+function Set:copy()
+    local set = Set:new()
+    for item in pairs(self.items_) do
+        set:add(item)
     end
+    return set
+end
 
-    -- Returns a new Set that contains all items from the original Set
-    -- and all items from the given Sets; can also use: setU = s1 | s2
-    -- @param {Set[]}
-    -- @returns Set
-    self.union = function(...)
-        local union = Set(Tbl.keys(self.items_))
-        for _, set in ipairs({ ... }) do
-            set.each(function(item)
-                union.add(item)
-            end)
-        end
-        return union
+function Set:union(other)
+    local union = Set:new()
+    for key in pairs(self.items_) do
+        union:add(key)
     end
-
-    -- Returns a new Set that contains all elements that are common to
-    -- all the given Sets; can also use: setI = s1 & s2
-    -- @param {Set[]}
-    -- @returns Set
-    self.intersection = function(...)
-        local sets = { ... }
-        local intersection = Set()
-        self.each(function(item)
-            local is_common = true
-            for _, set in ipairs(sets) do
-                if not set.contains(item) then
-                    is_common = false
-                    break
-                end
-            end
-            if is_common then intersection.add(item) end
-        end)
-        return intersection
+    for key in pairs(other.items_) do
+        union:add(key)
     end
+    return union
+end
 
-    -- Returns a new Set that contains the items that only exist in the
-    -- original Set and are not in any of the given Sets
-    -- @param {Set[]}
-    -- @returns Set
-    self.difference = function(...)
-        local sets = { ... }
-        local difference = Set()
-        self.each(function(item)
-            local is_common = false
-            for _, set in ipairs(sets) do
-                if set.contains(item) then
-                    is_common = true
-                    break
-                end
-            end
-            if not is_common then difference.add(item) end
-        end)
-        return difference
+function Set:intersect(other)
+    local intersection = Set:new()
+    for key in pairs(self.items_) do
+        if other:contains(key) then intersection:add(key) end
     end
+    return intersection
+end
 
-    -- Returns the symetric difference of two Sets
-    -- @param {Set}
-    -- @returns {Set}
-    self.symmetric_difference = function(set)
-        local difference = Set(Tbl.keys(self.items_))
-        set.each(function(item)
-            if difference.contains(item) then
-                difference.remove(item)
-            else
-                difference.add(item)
-            end
-        end)
-        return difference
+function Set:difference(other)
+    local difference = Set:new()
+    for key in pairs(self.items_) do
+        if not other:contains(key) then difference:add(key) end
     end
+    return difference
+end
 
-    -- Returns true if the set contains all items present in the other Set
-    -- @param {Set}
-    -- @returns {boolean}
-    self.is_superset = function(set)
-        return self.every(function(item)
-            return set.contains(item)
-        end)
+function Set:symmetric_difference(other)
+    local difference = Set:new()
+    for key in pairs(self.items_) do
+        if not other:contains(key) then difference:add(key) end
     end
-
-    -- Returns a human-readable string representation of the set with
-    -- the items sorted
-    self.tostring = function()
-        local strs = {}
-        for item in pairs(self.items_) do
-            strs[#strs + 1] = tostring(item)
-        end
-        table.sort(strs)
-        return "{" .. table.concat(strs, " ") .. "}"
+    for key in pairs(other.items_) do
+        if not self:contains(key) then difference:add(key) end
     end
+    return difference
+end
 
-    self.equal_ = function(other)
-        if self == other then return true end
-        if self.size_ ~= #other then return false end
-        return Tbl.deepequal(self.items_, other.items_)
+function Set:is_disjoint(other)
+    for key in pairs(self.items_) do
+        if other:contains(key) then return false end
     end
+    return true
+end
 
-    self.add(...)
+function Set:is_subset(other)
+    for key in pairs(self.items_) do
+        if not other:contains(key) then return false end
+    end
+    return true
+end
 
-    return setmetatable(self, {
-        __band = self.intersection,
-        __bor = self.union,
-        __eq = self.equal_,
-        __index = function()
-            error("use Set.contains()")
-        end,
-        __newindex = function()
-            error("use Set.add()")
-        end,
-        __len = function()
-            return self.size_
-        end,
-        __tostring = self.tostring,
-    })
+function Set:is_superset(other)
+    return other:is_subset(self)
+end
+
+function Set:tostring()
+    local strs = {}
+    for item in pairs(self.items_) do
+        strs[#strs + 1] = tostring(item)
+    end
+    table.sort(strs)
+    return "{" .. table.concat(strs, " ") .. "}"
 end
 
 return Set
