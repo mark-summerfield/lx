@@ -93,6 +93,12 @@ check(odd:is_subset(c))
 check(c:is_superset(odd))
 check(not c:is_disjoint(odd))
 check(c:is_disjoint(Set:new(99)))
+check(even ~= odd)
+check(a ~= b)
+d = Set:new(2, 4, 6, 8)
+check(d ~= even)
+d:add(10)
+check(d == even)
 local seen = { a = 0, b = 0, c = 0, d = 0, e = 0, f = 0 }
 a = Set:new("a", "b", "c", "d", "e", "f")
 while true do
@@ -104,14 +110,16 @@ while true do
     end
     if done then break end
 end
---[[ -- TODO
 local strs = {}
 for x in a:iter() do
-    print(x)
     table.insert(strs, x)
 end
 check("a b c d e f" == table.concat(strs, " "))
-]]
+strs = {}
+for x in d:iter() do
+    table.insert(strs, tostring(x))
+end
+check("2 4 6 8 10" == table.concat(strs, " "))
 
 -- Report
 local message = "OK"

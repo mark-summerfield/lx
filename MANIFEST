@@ -1,10 +1,9 @@
-# TODO rethink iter()
 Set.lua
 Str.lua
 Tbl.lua
 
 test_Set.lua
-test_Str.lua
+test_Str.lua # TODO
 test_Tbl.lua
 
 st.sh
