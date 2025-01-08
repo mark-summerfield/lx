@@ -3,8 +3,7 @@
 
 local Set = require("Set")
 local check = require("check").check
-local ok = require("check").get_ok
-local total = require("check").get_total
+local report = require("check").report
 
 local even = Set:new(2, 4, 6, 8)
 check("{2 4 6 8}" == even:tostring(true), even)
@@ -113,6 +112,4 @@ for x in d:iter(true) do
 end
 check("2 4 6 8 10" == table.concat(strs, " "))
 
-local message = "OK"
-if ok() ~= total() then message = "FAIL" end
-io.write("Set ", ok(), "/", total(), " ", message, "\n")
+report("Set")

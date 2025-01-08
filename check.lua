@@ -13,12 +13,10 @@ local function check(expr, msg)
     end
 end
 
-local function get_ok()
-    return ok
+local function report(context)
+    local message = "OK"
+    if ok ~= total then message = "FAIL" end
+    io.write(context, " ", ok, "/", total, " ", message, "\n")
 end
 
-local function get_total()
-    return total
-end
-
-return { check = check, get_ok = get_ok, get_total = get_total }
+return { check = check, report = report }

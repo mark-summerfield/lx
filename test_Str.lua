@@ -3,8 +3,7 @@
 
 require("Str")
 local check = require("check").check
-local ok = require("check").get_ok
-local total = require("check").get_total
+local report = require("check").report
 
 local e = "this and that"
 local s = " \tthis and that\n"
@@ -36,6 +35,4 @@ check("c" == t:at(-3))
 check("d" == t:at(-2))
 check("E" == t:at(-1))
 
-local message = "OK"
-if ok() ~= total() then message = "FAIL" end
-io.write("Str ", ok(), "/", total(), " ", message, "\n")
+report("Str")
