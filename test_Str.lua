@@ -32,6 +32,12 @@ check("thistle and that" == e:insert(5, "tle"))
 check("A this and that" == e:insert(1, "A "))
 t = " \tthis    and\t that\n"
 check("this and that" == t:simplifywhitespace())
+t = "AbcdE"
+check("A" == t:at(1))
+check("b" == t:at(2))
+check("c" == t:at(3))
+check("d" == t:at(-2))
+check("E" == t:at(-1))
 
 -- Report
 local message = "OK"

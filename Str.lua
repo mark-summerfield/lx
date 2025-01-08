@@ -4,6 +4,10 @@ function string:contains(other)
     return self:find(other, 1, true) ~= nil
 end
 
+function string:at(pos) -- returns the ASCII char or nil
+    return self:sub(pos, pos)
+end
+
 function string:startswith(start)
     return self:sub(1, #start) == start
 end
