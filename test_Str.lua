@@ -1,18 +1,10 @@
 #!/usr/bin/env lua
+-- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 require("Str")
-
-local ok = 0
-local total = 0
-
-local function check(expr, msg)
-    total = total + 1
-    if expr then
-        ok = ok + 1
-    else
-        error('FAIL "' .. tostring(msg) .. '"', 2)
-    end
-end
+local check = require("check").check
+local ok = require("check").get_ok
+local total = require("check").get_total
 
 local e = "this and that"
 local s = " \tthis and that\n"
@@ -31,15 +23,19 @@ check(not e:endswith("Hat"))
 check("thistle and that" == e:insert(5, "tle"))
 check("A this and that" == e:insert(1, "A "))
 t = " \tthis    and\t that\n"
-check("this and that" == t:simplifywhitespace())
+check("this and that" == t:clean())
 t = "AbcdE"
 check("A" == t:at(1))
 check("b" == t:at(2))
 check("c" == t:at(3))
+check("d" == t:at(4))
+check("E" == t:at(5))
+check("A" == t:at(-5))
+check("b" == t:at(-4))
+check("c" == t:at(-3))
 check("d" == t:at(-2))
 check("E" == t:at(-1))
 
--- Report
 local message = "OK"
-if ok ~= total then message = "FAIL" end
-io.write("Str ", ok, "/", total, " ", message, "\n")
+if ok() ~= total() then message = "FAIL" end
+io.write("Str ", ok(), "/", total(), " ", message, "\n")

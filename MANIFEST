@@ -1,10 +1,9 @@
 Set.lua
 Str.lua
-Tbl.lua
 
 test_Set.lua
 test_Str.lua
-test_Tbl.lua
+check.lua
 
 st.sh
 

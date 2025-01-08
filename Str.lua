@@ -1,10 +1,11 @@
 #!/usr/bin/env lua
+-- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 function string:contains(other)
     return self:find(other, 1, true) ~= nil
 end
 
-function string:at(pos) -- returns the ASCII char or nil
+function string:at(pos) -- returns the ASCII char or nil if invalid pos
     return self:sub(pos, pos)
 end
 
@@ -32,7 +33,7 @@ function string:trimleft()
     return self:match("^%s*(.-)$")
 end
 
-function string:simplifywhitespace()
+function string:clean()
     return self:trim():gsub("%s+", " ")
 end
 

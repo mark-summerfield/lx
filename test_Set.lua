@@ -1,18 +1,10 @@
 #!/usr/bin/env lua
+-- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 local Set = require("Set")
-
-local ok = 0
-local total = 0
-
-local function check(expr, msg)
-    total = total + 1
-    if expr then
-        ok = ok + 1
-    else
-        error("FAIL " .. tostring(msg), 2)
-    end
-end
+local check = require("check").check
+local ok = require("check").get_ok
+local total = require("check").get_total
 
 local even = Set:new(2, 4, 6, 8)
 check("{2 4 6 8}" == even:tostring(true), even)
@@ -122,5 +114,5 @@ end
 check("2 4 6 8 10" == table.concat(strs, " "))
 
 local message = "OK"
-if ok ~= total then message = "FAIL" end
-io.write("Set ", ok, "/", total, " ", message, "\n")
+if ok() ~= total() then message = "FAIL" end
+io.write("Set ", ok(), "/", total(), " ", message, "\n")

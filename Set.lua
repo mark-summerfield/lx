@@ -1,4 +1,5 @@
 #!/usr/bin/env lua
+-- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 local Set = {}
 
