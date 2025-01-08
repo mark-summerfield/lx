@@ -122,16 +122,16 @@ function Set:is_superset(other)
     return other:is_subset(self)
 end
 
-function Set:tostring()
+function Set:tostring(sorted) -- slow; even slower if sorted is true
     local strs = {}
     for item in pairs(self.items_) do
         strs[#strs + 1] = tostring(item)
     end
-    table.sort(strs)
+    if sorted then table.sort(strs) end
     return "{" .. table.concat(strs, " ") .. "}"
 end
 
-function Set:random_item()
+function Set:random_item() -- slow!
     local index = math.random(1, self.size_)
     local i = 1
     for item in pairs(self.items_) do
@@ -141,12 +141,12 @@ function Set:random_item()
     error("no random item found")
 end
 
-function Set:iter()
+function Set:iter(sorted) -- slow; even slower if sorted is true
     local items = {}
     for item in pairs(self.items_) do
         items[#items + 1] = item
     end
-    table.sort(items)
+    if sorted then table.sort(items) end
     local i = 0
     return function()
         i = i + 1
