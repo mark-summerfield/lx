@@ -1,8 +1,8 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local HOME <const> = os.getenv("HOME")
-local ROCKS_SO_PATH = HOME .. "/opt/luarocks/lib/lua/5.4/?.so"
+local HOME <const> = os.getenv("HOME") .. "/"
+local ROCKS_SO_PATH = HOME .. "opt/luarocks/lib/lua/5.4/?.so"
 package.cpath = package.cpath .. ";" .. ROCKS_SO_PATH
 
 local lfs = require("lfs")
