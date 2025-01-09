@@ -12,7 +12,7 @@ function Fs.cwd()
     return lfs.currentdir() -- io.popen("pwd"):read()
 end
 
-function Fs.cd(dirname)
+function Fs.chdir(dirname)
     return lfs.chdir(dirname)
 end
 
