@@ -76,7 +76,7 @@ function methods:random_item() -- slow!
         if i == index then return item end
         i = i + 1
     end
-    error("no random item found")
+    error("Set:random_item() no random item found")
 end
 
 function methods:copy()
