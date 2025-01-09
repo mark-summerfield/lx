@@ -1,5 +1,6 @@
 set.lua
 str.lua
+tbl.lua
 
 test_set.lua
 test_str.lua

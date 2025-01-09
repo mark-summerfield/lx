@@ -23,11 +23,4 @@ local function checker()
     return check, report
 end
 
-local function dumptable(tbl, name)
-    if name then print(name) end
-    for key, value in pairs(tbl) do
-        print(key, "=", value)
-    end
-end
-
-return { checker = checker, dumptable = dumptable }
+return { checker = checker }
