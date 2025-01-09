@@ -1,8 +1,8 @@
-Set.lua
-Str.lua
+set.lua
+str.lua
 
-test_Set.lua
-test_Str.lua
+test_set.lua
+test_str.lua
 check.lua
 
 st.sh

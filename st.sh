@@ -1,6 +1,6 @@
 clc
-luacheck -q -g *.lua
-./test_Set.lua
-./test_Str.lua
+luacheck -q *.lua
+./test_set.lua
+./test_str.lua
 
 git st

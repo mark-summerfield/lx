@@ -1,9 +1,8 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local Set = require("Set")
-local check = require("check").check
-local report = require("check").report
+local Set = require("set")
+local check, report = require("check").checker()
 
 local even = Set:new(2, 4, 6, 8)
 check("{2 4 6 8}" == even:tostring(true), even)
