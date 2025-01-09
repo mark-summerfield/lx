@@ -2,6 +2,7 @@
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 local Set
+
 local methods = {}
 
 function methods:len()
@@ -86,7 +87,7 @@ function methods:copy()
     return set
 end
 
-function methods:iter(sorted) -- slow; even slower if sorted is true
+function methods:iter(sorted) -- slow
     local items = {}
     for item in pairs(self.items_) do
         items[#items + 1] = item
@@ -99,7 +100,7 @@ function methods:iter(sorted) -- slow; even slower if sorted is true
     end
 end
 
-function methods:tostring(sorted) -- slow; even slower if sorted is true
+function methods:tostring(sorted) -- slow
     local strs = {}
     for item in pairs(self.items_) do
         strs[#strs + 1] = tostring(item)
