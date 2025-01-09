@@ -15,8 +15,9 @@ local function checker()
     end
 
     local function report(context)
-        local message = (ok == total) and "OK" or "FAIL"
-        io.write(context, " ", ok, "/", total, " ", message, "\n")
+        local message = ok == total and "OK" or "FAIL"
+        context = context and context .. " " or ""
+        io.write(context, ok, "/", total, " ", message, "\n")
     end
 
     return check, report
