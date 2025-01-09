@@ -3,6 +3,14 @@
 
 local Str = {}
 
+function Str.isin(s, ...)
+    local args = type(...) == "string" and { ... } or ...
+    for _, t in ipairs(args) do
+        if s == t then return true end
+    end
+    return false
+end
+
 function Str.contains(s, t)
     return s:find(t, 1, true) ~= nil
 end
