@@ -1,7 +1,9 @@
 fs.lua
 set.lua
 str.lua
-tbl.lua
+lx.lua
+
+exp_gen.lua
 
 test_fs.lua
 test_set.lua
