@@ -5,7 +5,6 @@ str.lua
 
 exp_gen.lua
 
-test_fs.lua
 test_set.lua
 test_str.lua
 check.lua
