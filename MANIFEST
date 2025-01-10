@@ -2,6 +2,7 @@ lx.lua
 fs.lua
 set.lua
 str.lua
+misc.lua
 
 exp_gen.lua
 
