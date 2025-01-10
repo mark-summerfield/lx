@@ -2,7 +2,7 @@
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 require("lx") -- for luarocks paths
-local utils = require("pl.utils")
+local pl = require("pl.import_into")()
 local Misc = require("misc")
 
 local SIZE <const> = 3000000
@@ -73,7 +73,7 @@ local function time_map_pairs()
     local t = Misc.timeit(function()
         sum_map_keys_by_pairs(map)
     end)
-    utils.printf("map_key_pairs() %7.3f secs\n", t)
+    pl.utils.printf("map_key_pairs() %7.3f secs\n", t)
 end
 
 local function time_map_iter()
@@ -81,7 +81,7 @@ local function time_map_iter()
     local t = Misc.timeit(function()
         sum_map_keys_by_iter(map)
     end)
-    utils.printf("map_key_iter()  %7.3f secs\n", t)
+    pl.utils.printf("map_key_iter()  %7.3f secs\n", t)
 end
 
 local function time_map_gen()
@@ -89,19 +89,19 @@ local function time_map_gen()
     local t = Misc.timeit(function()
         sum_map_keys_by_gen(map)
     end)
-    utils.printf("map_key_gen()   %7.3f secs\n", t)
+    pl.utils.printf("map_key_gen()   %7.3f secs\n", t)
 end
 
 local function main()
-    utils.printf("#0 % 20.0f KB\n", collectgarbage("count"))
-    utils.printf("number of items %d\n", SIZE)
-    utils.printf("#1 % 20.0f KB\n", collectgarbage("count"))
+    pl.utils.printf("#0 % 20.0f KB\n", collectgarbage("count"))
+    pl.utils.printf("number of items %d\n", SIZE)
+    pl.utils.printf("#1 % 20.0f KB\n", collectgarbage("count"))
     time_map_pairs()
-    utils.printf("#2 % 20.0f KB\n", collectgarbage("count"))
+    pl.utils.printf("#2 % 20.0f KB\n", collectgarbage("count"))
     time_map_iter()
-    utils.printf("#3 % 20.0f KB\n", collectgarbage("count"))
+    pl.utils.printf("#3 % 20.0f KB\n", collectgarbage("count"))
     time_map_gen()
-    utils.printf("#4 % 20.0f KB\n", collectgarbage("count"))
+    pl.utils.printf("#4 % 20.0f KB\n", collectgarbage("count"))
 end
 
 main()
