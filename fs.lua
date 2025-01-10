@@ -24,6 +24,12 @@ function Fs.chmod(filename, mode) -- Unix-specific
     os.execute("chmod " .. mode .. ' "' .. filename .. '"')
 end
 
+function Fs.writefile(filename, text)
+    local file = assert(io.open(filename, "w"))
+    file:write(text)
+    file:close()
+end
+
 function Fs.copy(source, dest)
     local infile = io.open(source, "rb")
     if infile then
