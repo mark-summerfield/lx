@@ -1,33 +1,15 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local HOME <const> = os.getenv("HOME") .. "/"
-local ROCKS_SO_PATH = HOME .. "opt/luarocks/lib/lua/5.4/?.so"
-package.cpath = package.cpath .. ";" .. ROCKS_SO_PATH
+local ok, _ = pcall(require, "lx.lx")
+if not ok then
+    require("lx") -- for package.path and package.cpath
+end
 
-local lfs = require("lfs")
 local Fs = {}
-
-function Fs.cwd()
-    return lfs.currentdir() -- io.popen("pwd"):read()
-end
-
-function Fs.chdir(dirname)
-    return lfs.chdir(dirname)
-end
-
-function Fs.mkdir(dirname)
-    return lfs.mkdir(dirname)
-end
 
 function Fs.chmod(filename, mode) -- Unix-specific
     os.execute("chmod " .. mode .. ' "' .. filename .. '"')
-end
-
-function Fs.writefile(filename, text)
-    local file = assert(io.open(filename, "w"))
-    file:write(text)
-    file:close()
 end
 
 function Fs.copy(source, dest)
@@ -46,6 +28,6 @@ function Fs.copy(source, dest)
     end
 end
 
--- for remove use os.remove(filename)
+-- for remove use os.remove(filename); see also pl.{path,file,dir}
 
 return Fs
