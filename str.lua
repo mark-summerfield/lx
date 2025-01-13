@@ -3,7 +3,7 @@
 
 local Str = {}
 
-function Str.isin(s, ...)
+function Str.isin(s, ...) -- is given string or list of strings in s
     local args = type(...) == "string" and { ... } or ...
     for _, t in ipairs(args) do
         if s == t then return true end
@@ -11,7 +11,7 @@ function Str.isin(s, ...)
     return false
 end
 
-function Str.contains(s, t)
+function Str.contains(s, t) -- does s contain t
     return s:find(t, 1, true) ~= nil
 end
 
@@ -19,16 +19,16 @@ function Str.at(s, pos) -- returns the ASCII char or nil if invalid pos
     return s:sub(pos, pos)
 end
 
-function Str.startswith(s, start)
-    return s:sub(1, #start) == start
+function Str.startswith(s, t) -- does s start with t
+    return s:sub(1, #t) == t
 end
 
-function Str.endswith(s, ending)
-    return ending == "" or s:sub(-#ending) == ending
+function Str.endswith(s, t) -- does s end with t
+    return t == "" or s:sub(-#t) == t
 end
 
-function Str.insert(s, pos, text)
-    return s:sub(1, pos - 1) .. text .. s:sub(pos)
+function Str.insert(s, pos, t) -- insert t into s at pos
+    return s:sub(1, pos - 1) .. t .. s:sub(pos)
 end
 
 function Str.trim(s)
@@ -43,7 +43,7 @@ function Str.trimleft(s)
     return s:match("^%s*(.-)$")
 end
 
-function Str.clean(s)
+function Str.clean(s) -- trim whitespace and normalize internal whitespace
     return Str.trim(s:gsub("%s+", " "))
 end
 
