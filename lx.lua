@@ -1,6 +1,12 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
+-- ***** to use add these lines *****
+-- local HOME <const> = os.getenv("HOME") .. "/"
+-- package.path = package.path .. ";" .. HOME .. "app/lua/?.lua"
+-- require("lx.lx") -- for luarocks paths
+-- local pl = require("pl.import_into")()
+
 local HOME <const> = os.getenv("HOME") .. "/"
 local ROCKS_PATH = HOME .. "opt/luarocks/share/lua/5.4/?.lua"
 package.path = package.path .. ";" .. ROCKS_PATH

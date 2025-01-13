@@ -1,8 +1,7 @@
 lx.lua
 fs.lua
-set.lua # TODO replace with pl.Set
-str.lua # NOTE replace with penlight?
-misc.lua # NOTE replace with penlight?
+set.lua
+str.lua
 
 exp_gen.lua
 

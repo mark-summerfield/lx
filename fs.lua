@@ -1,11 +1,6 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local ok, _ = pcall(require, "lx.lx")
-if not ok then
-    require("lx") -- for package.path and package.cpath
-end
-
 local Fs = {}
 
 function Fs.chmod(filename, mode) -- Unix-specific
