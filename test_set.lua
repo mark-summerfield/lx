@@ -91,6 +91,13 @@ d = Set(2, 4, 6, 8)
 check(d ~= even)
 d:add(10)
 check(d == even)
+local f = even - Set(4, 6)
+check(f == Set(2, 8, 10))
+f:unite(Set(1, 2, 3))
+check(f == Set(1, 2, 3, 8, 10))
+f = Set(2, 8, 10)
+f:add(1, 2, 3)
+check(f == Set(1, 2, 3, 8, 10))
 local seen = { a = 0, b = 0, c = 0, d = 0, e = 0, f = 0 }
 a = Set("a", "b", "c", "d", "e", "f")
 while true do
