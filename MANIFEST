@@ -11,4 +11,20 @@ check.lua
 
 st.sh
 
+# set.lua: add :typeof() method to return 'set'
+#
+# lx/misc.lua
+# local function typeof(x)
+#   local name = type(x)
+#   if name ~= 'table' then return name end
+#   -- somehow call x:typeof() & if it fails return 'table'
+#
+# list.lua: List wrapper for tables (like Set is a wrapper)
+#
+# map.lua: Map wrapper for tables (like Set is a wrapper)
+#
+# wordladder.lua: use lx.List for ladder
+#
+# lapp.lua: use lx.{List,Map} if/where appropriate
+
 # vim: syn=yaml
