@@ -20,8 +20,10 @@ st.sh
 #   -- somehow call x:typeof() & if it fails return 'table'
 #
 # list.lua: List wrapper for tables (like Set is a wrapper)
+#   + test_list.lua
 #
 # map.lua: Map wrapper for tables (like Set is a wrapper)
+#   + test_map.lua
 #
 # wordladder.lua: use lx.List for ladder
 #
