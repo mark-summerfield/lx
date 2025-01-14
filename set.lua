@@ -5,6 +5,10 @@ local Set
 
 local methods = {}
 
+function methods.typeof()
+    return "Set"
+end
+
 function methods:len()
     return self.size_
 end

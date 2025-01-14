@@ -119,5 +119,7 @@ for x in d:iter(true) do
     table.insert(strs, tostring(x))
 end
 check("2 4 6 8 10" == table.concat(strs, " "))
+check(a:typeof() == "Set")
+check(a.typeof() == "Set")
 
 report("Set")

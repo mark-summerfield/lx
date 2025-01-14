@@ -11,6 +11,29 @@ function Lx.printf(fmt, ...)
     Lx.fprintf(io.stdout, fmt, ...)
 end
 
+function Lx.type(x)
+    local t = type(x)
+    if t == "table" then
+        local ok, name = pcall(x.typeof)
+        if ok then return name end
+    elseif t == "number" then
+        return math.type(x)
+    end
+    return t
+end
+
+function Lx.dump(tbl)
+    io.write("{")
+    local sep = ""
+    for key, value in pairs(tbl) do
+        local t = Lx.type(value)
+        if t == "string" then value = "[[" .. value .. "]]" end
+        Lx.printf("%s%s=%s", sep, key, value)
+        sep = ", "
+    end
+    io.write("}\n")
+end
+
 function Lx.timeit(name, func)
     local t = os.clock()
     func()
