@@ -7,7 +7,7 @@
 -- -or-
 -- package.path = package.path .. ";" .. os.getenv("HOME")
 --      .. "/app/lua/?.lua"
--- require("lx.lx") -- for luarocks paths
+-- require("lx.rocks") -- for luarocks paths
 -- local pl = require("pl.import_into")()
 
 local HOME <const> = os.getenv("HOME") .. "/"

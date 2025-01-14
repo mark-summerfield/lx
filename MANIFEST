@@ -28,6 +28,9 @@ st.sh
 #
 # wordladder.lua: use lx.List for ladder
 #
-# lapp.lua: use lx.{List,Map} if/where appropriate
+# dir.lua
+#   replace all relevant lfs and pl.{dir,file,path} functions with my own 
+#
+# lapp.lua: use lx.{List,Map,dir} if/where appropriate
 
 # vim: syn=yaml

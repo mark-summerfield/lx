@@ -1,18 +1,21 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local function fprintf(file, fmt, ...)
+local Lx = {}
+
+function Lx.fprintf(file, fmt, ...)
     file:write(string.format(fmt, ...))
 end
 
-local function printf(fmt, ...)
-    fprintf(io.stdout(fmt, ...))
+function Lx.printf(fmt, ...)
+    Lx.fprintf(io.stdout, fmt, ...)
 end
 
-local function timeit(func)
+function Lx.timeit(name, func)
     local t = os.clock()
     func()
-    return os.clock() - t
+    t = os.clock() - t
+    Lx.printf("%s %9.3f sec\n", name, t)
 end
 
-return { printf = printf, fprintf = fprintf, timeit = timeit }
+return Lx
