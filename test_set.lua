@@ -102,8 +102,8 @@ local seen = { a = 0, b = 0, c = 0, d = 0, e = 0, f = 0 }
 a = Set("a", "b", "c", "d", "e", "f")
 check(a:tostring(true) == "{«a» «b» «c» «d» «e» «f»}")
 while true do
-    local item = a:random_item()
-    seen[item] = seen[item] + 1
+    local element = a:random_value()
+    seen[element] = seen[element] + 1
     local done = true
     for _, value in pairs(seen) do
         if value == 0 then done = false end
@@ -115,6 +115,7 @@ for x in a:iter(true) do
     table.insert(strs, x)
 end
 check("a b c d e f" == table.concat(strs, " "))
+check("a b c d e f" == table.concat(a:values(true), " "))
 strs = {}
 for x in d:iter(true) do
     table.insert(strs, tostring(x))

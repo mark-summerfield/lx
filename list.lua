@@ -13,69 +13,86 @@ function methods:len()
     return #self.values_
 end
 
-function methods:get(pos)
-    if pos > #self.values_ then return nil end
-    return self.values_[pos]
+function methods:at(pos)
+    return pos <= #self.values_ and self.values_[pos] or nil
 end
 
-function methods:find(item)
+function methods:first()
+    return #self.values_ > 0 and self.values_[1] or nil
+end
+
+function methods:last()
+    return #self.values_ > 0 and self.values_[#self.values_] or nil
+end
+
+function methods:find(value)
     for i, x in ipairs(self.values_) do
-        if x == item then return i end
+        if x == value then return i end
     end
     return nil
 end
 
-function methods:rfind(item)
+function methods:rfind(value)
     for i = #self.values_, 1, -1 do
-        if self.values_[i] == item then return i end
+        if self.values_[i] == value then return i end
     end
     return nil
 end
 
-function methods:contains(item)
-    return self:find(item) ~= nil
+function methods:contains(value)
+    return self:find(value) ~= nil
 end
 
 function methods:sort(cmp)
     table.sort(self.values_, cmp)
 end
 
+function methods:random_value()
+    return #self.values_ > 0 and self.values_[math.random(1, #self.values_)]
+        or nil
+end
+
 function methods:append(...)
-    for _, item in ipairs({ ... }) do
-        table.insert(self.values_, item)
+    for _, value in ipairs({ ... }) do
+        table.insert(self.values_, value)
     end
 end
 
-function methods:set(pos, item)
+function methods:insert(pos, value)
+    table.insert(self.values_, pos, value)
+end
+
+function methods:set(pos, value)
     assert(pos <= #self.values_, "List.set() pos out of range")
-    self.values_[pos] = item
+    self.values_[pos] = value
 end
 
 function methods:pop()
-    return self:remove(#self.values_)
+    return #self.values_ > 0 and self:remove(#self.values_) or nil
 end
 
 function methods:remove(pos)
-    local item = self.values_[pos]
+    if pos > #self.values_ then return nil end
+    local value = self.values_[pos]
     table.remove(self.values_, pos)
-    return item
+    return value
 end
 
 function methods:copy()
     local list = List()
-    for _, item in ipairs(self.values_) do
-        table.insert(list.values_, item)
+    for _, value in ipairs(self.values_) do
+        table.insert(list.values_, value)
     end
     return list
 end
 
 function methods:tostring()
     local strs = {}
-    for i, item in ipairs(self.values_) do
-        if type(item) == "string" then
-            strs[i] = "«" .. item .. "»"
+    for i, value in ipairs(self.values_) do
+        if type(value) == "string" then
+            strs[i] = "«" .. value .. "»"
         else
-            strs[i] = tostring(item)
+            strs[i] = tostring(value)
         end
     end
     return "[" .. table.concat(strs, " ") .. "]"
@@ -83,6 +100,20 @@ end
 
 function methods:clear()
     self.values_ = {}
+end
+
+-- values = list:values()
+-- for _, value in ipairs(values) do ... end -- is faster than list:iter()
+function methods:iter()
+    local i = 0
+    return function()
+        i = i + 1
+        return self.values_[i]
+    end
+end
+
+function methods:values()
+    return self.values_
 end
 
 local meta = { __index = methods }

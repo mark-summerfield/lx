@@ -15,17 +15,13 @@ st.sh
 
 # see: /home/mark/opt/luarocks/share/lua/5.4/pl/
 #
-# list.lua: List wrapper for tables (like Set is a wrapper, incl. typeof())
-#   + test_list.lua
-#
-# map.lua: Map wrapper for tables (like Set is a wrapper, incl. typeof())
+# map.lua: Map wrapper for tables (like Set is a wrapper, incl.
+#   typeof()), but use items_ and item rather than values_ and value
 #   + test_map.lua
-#
-# wordladder.lua: use lx.List for ladder
 #
 # dir.lua
 #   replace all relevant lfs and pl.{dir,file,path} functions with my own 
 #
-# lapp.lua: use lx.{List,Map,dir} if/where appropriate
+# lapp.lua: use lx.{List,Map} if/where appropriate
 
 # vim: syn=yaml
