@@ -113,7 +113,12 @@ end
 function methods:tostring(sorted)
     local strs = {}
     for item in pairs(self.items_) do
-        strs[#strs + 1] = tostring(item)
+        local i = #strs + 1
+        if type(item) == "string" then
+            strs[i] = "«" .. item .. "»"
+        else
+            strs[i] = tostring(item)
+        end
     end
     if sorted then table.sort(strs) end
     return "{" .. table.concat(strs, " ") .. "}"
