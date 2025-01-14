@@ -1,9 +1,8 @@
+rocks.lua
 lx.lua
 fs.lua
 set.lua
 str.lua
-
-exp_gen.lua
 
 test_set.lua
 test_str.lua
@@ -11,9 +10,11 @@ check.lua
 
 st.sh
 
+# see: /home/mark/opt/luarocks/share/lua/5.4/pl/
+#
 # set.lua: add :typeof() method to return 'set'
 #
-# lx/misc.lua
+# lx/lx.lua
 # local function typeof(x)
 #   local name = type(x)
 #   if name ~= 'table' then return name end
