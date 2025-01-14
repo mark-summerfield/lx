@@ -13,16 +13,16 @@ function methods:len()
     return #self.values_
 end
 
-function methods:at(pos)
-    return pos <= #self.values_ and self.values_[pos] or nil
-end
-
 function methods:first()
     return #self.values_ > 0 and self.values_[1] or nil
 end
 
 function methods:last()
     return #self.values_ > 0 and self.values_[#self.values_] or nil
+end
+
+function methods:at(pos)
+    return pos <= #self.values_ and self.values_[pos] or nil
 end
 
 function methods:find(value)
