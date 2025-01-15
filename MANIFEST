@@ -2,11 +2,13 @@ rocks.lua
 lx.lua
 fs.lua
 list.lua
+map.lua
 set.lua
 str.lua
 
 test_lx.lua
 test_list.lua
+test_map.lua
 test_set.lua
 test_str.lua
 check.lua
@@ -18,6 +20,6 @@ st.sh
 #   and provide both :keys(sorted) and :values(sorted) methods
 #   + test_map.lua
 
-# for more ideas see: /home/mark/opt/luarocks/share/lua/5.4/pl/
+# /home/mark/opt/luarocks/share/lua/5.4/pl/
 
 # vim: syn=yaml
