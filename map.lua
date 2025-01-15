@@ -80,11 +80,11 @@ function methods:iter()
     --    end
 end
 
-function methods:keys()
+function methods:keys(sorted)
     --    return self.items_
 end
 
-function methods:values()
+function methods:values(sorted)
     --    return self.items_
 end
 

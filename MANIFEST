@@ -2,23 +2,18 @@ rocks.lua
 lx.lua
 fs.lua
 list.lua
-map.lua
+map.lua # TODO
 set.lua
 str.lua
 
 test_lx.lua
 test_list.lua
-test_map.lua
+test_map.lua # TODO
 test_set.lua
 test_str.lua
 check.lua
 
 st.sh
-
-# TODO map.lua: Map wrapper for tables (like Set is a wrapper, incl.
-#   typeof()), but use items_ and item rather than values_ and value
-#   and provide both :keys(sorted) and :values(sorted) methods
-#   + test_map.lua
 
 # /home/mark/opt/luarocks/share/lua/5.4/pl/
 
