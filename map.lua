@@ -9,12 +9,9 @@ function methods.typeof()
     return "Map"
 end
 
+-- How can I replace: v = map:get(key) with v = map[key]
 function methods:get(key)
     return self.items_[key]
-end
-
-function methods:set(key, value) -- adds or updates
-    self.items_[key] = value
 end
 
 function methods:isempty()
@@ -86,6 +83,10 @@ function methods:values(sorted)
 end
 
 local meta = { __index = methods }
+
+function meta:__newindex(key, value) -- adds or updates
+    self.items_[key] = value
+end
 
 function meta:__tostring()
     return self:tostring()
