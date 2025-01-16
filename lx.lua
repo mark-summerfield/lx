@@ -41,7 +41,7 @@ function Lx.timeit(name, func)
     Lx.printf("%s %9.3f sec\n", name, t)
 end
 
-local function deepcopy(orig, copies_) -- call with ONE table only!
+local function clone(orig, copies_) -- call with ONE table only!
     copies_ = copies_ or {}
     local orig_type = type(orig)
     local copy
@@ -52,10 +52,10 @@ local function deepcopy(orig, copies_) -- call with ONE table only!
             copy = {}
             copies_[orig] = copy
             for orig_key, orig_value in next, orig, nil do
-                copy[deepcopy(orig_key, copies_)] =
-                    deepcopy(orig_value, copies_)
+                copy[clone(orig_key, copies_)] =
+                    clone(orig_value, copies_)
             end
-            setmetatable(copy, deepcopy(getmetatable(orig), copies_))
+            setmetatable(copy, clone(getmetatable(orig), copies_))
         end
     else -- number, string, boolean, etc
         copy = orig
@@ -63,8 +63,8 @@ local function deepcopy(orig, copies_) -- call with ONE table only!
     return copy
 end
 
-function Lx.deepcopy(tbl)
-    return deepcopy(tbl)
+function Lx.clone(tbl)
+    return clone(tbl)
 end
 
 return Lx
