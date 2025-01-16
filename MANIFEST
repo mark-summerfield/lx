@@ -16,14 +16,14 @@ check.lua
 
 st.sh
 
-# to use:
-# package.path = package.path .. ";" .. os.getenv("HOME") .. "/app/lua/?.lua"
-# local Map = require("lx.Map") -- etc
+# to import the modules use this approach:
+#   package.path = package.path .. ";" .. os.getenv("HOME") .. "/app/lua/?.lua"
+#   local Map = require("lx.Map") -- etc
 
-# to use here and elsewhere:
-#
-# local ok, List = pcall(require, "lx.list")
-# if not ok then List = require("list") end
+# to import the modules in each other and and by importers the modules
+# must use this approach:
+#   local ok, List = pcall(require, "lx.list")
+#   if not ok then List = require("list") end
 
 # /home/mark/opt/luarocks/share/lua/5.4/pl/
 
