@@ -1,19 +1,29 @@
 rocks.lua
+
 lx.lua
 fs.lua
 list.lua
-map.lua # TODO
+map.lua
 set.lua
 str.lua
 
 test_lx.lua
 test_list.lua
-test_map.lua # TODO
+test_map.lua
 test_set.lua
 test_str.lua
 check.lua
 
 st.sh
+
+# to use:
+# package.path = package.path .. ";" .. os.getenv("HOME") .. "/app/lua/?.lua"
+# local Map = require("lx.Map") -- etc
+
+# to use here and elsewhere:
+#
+# local ok, List = pcall(require, "lx.list")
+# if not ok then List = require("list") end
 
 # /home/mark/opt/luarocks/share/lua/5.4/pl/
 

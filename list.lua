@@ -9,6 +9,10 @@ function methods.typeof()
     return "List"
 end
 
+function methods:isempty()
+    return next(self.values_) == nil
+end
+
 function methods:len()
     return #self.values_
 end
@@ -78,22 +82,16 @@ function methods:remove(pos)
     return value
 end
 
-function methods:copy()
-    local list = List()
-    for _, value in ipairs(self.values_) do
-        table.insert(list.values_, value)
-    end
-    return list
-end
-
 function methods:tostring()
     local strs = {}
-    for i, value in ipairs(self.values_) do
+    for _, value in ipairs(self.values_) do
+        local str
         if type(value) == "string" then
-            strs[i] = "«" .. value .. "»"
+            str = "«" .. value .. "»"
         else
-            strs[i] = tostring(value)
+            str = tostring(value)
         end
+        table.insert(strs, str)
     end
     return "[" .. table.concat(strs, " ") .. "]"
 end

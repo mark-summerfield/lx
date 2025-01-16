@@ -9,6 +9,10 @@ function methods.typeof()
     return "Set"
 end
 
+function methods:isempty()
+    return next(self.values_) == nil
+end
+
 function methods:len()
     return self.size_
 end
@@ -89,14 +93,6 @@ function methods:random_value()
     error("Set:random_value() no random value found")
 end
 
-function methods:copy()
-    local set = Set()
-    for value in pairs(self.values_) do
-        set:add(value)
-    end
-    return set
-end
-
 function methods:iter(sorted)
     local values = self:values(sorted)
     local i = 0
@@ -118,12 +114,13 @@ end
 function methods:tostring(sorted)
     local strs = {}
     for value in pairs(self.values_) do
-        local i = #strs + 1
+        local str
         if type(value) == "string" then
-            strs[i] = "«" .. value .. "»"
+            str = "«" .. value .. "»"
         else
-            strs[i] = tostring(value)
+            str = tostring(value)
         end
+        table.insert(strs, str)
     end
     if sorted then table.sort(strs) end
     return "{" .. table.concat(strs, " ") .. "}"

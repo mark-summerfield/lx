@@ -9,83 +9,80 @@ function methods.typeof()
     return "Map"
 end
 
-function methods:len()
-    return #self.size_
-end
-
 function methods:get(key)
-    --    for i, x in ipairs(self.items_) do
-    --        if x == value then return i end
-    --    end
-    --    return nil
+    return self.items_[key]
 end
 
-function methods:contains(key)
-    --    return self:find(value) ~= nil
+function methods:set(key, value) -- adds or updates
+    self.items_[key] = value
 end
 
-function methods:add(...)
-    --    for _, value in ipairs({ ... }) do
-    --        table.insert(self.items_, value)
-    --    end
-end
-
-function methods:setdefault(key, value)
-    -- if key exists replace it's value else add key-value
+function methods:isempty()
+    return next(self.items_) == nil
 end
 
 function methods:remove(key)
-    --    if pos > #self.items_ then return nil end
-    --    local value = self.items_[pos]
-    --    table.remove(self.items_, pos)
-    --    return value
+    local value = self.items_[key]
+    if value then self.items_[key] = nil end
+    return value
 end
 
 function methods:update(map)
-    -- add every key-value from map to self
+    for key, value in pairs(map.items_) do
+        self.items_[key] = value
+    end
 end
 
-function methods:copy()
-    local map = Map()
-    --    for _, value in ipairs(self.items_) do
-    --        table.insert(map.items_, value)
-    --    end
-    return map
+local function maybe_quote(x)
+    if type(x) == "string" then return "«" .. x .. "»" end
+    return tostring(x)
 end
 
-function methods:tostring()
+function methods:tostring(sorted)
     local strs = {}
-    --    for i, value in ipairs(self.items_) do
-    --        if type(value) == "string" then
-    --            strs[i] = "«" .. value .. "»"
-    --        else
-    --            strs[i] = tostring(value)
-    --        end
-    --    end
+    for key, value in pairs(self.items_) do
+        table.insert(strs, maybe_quote(key) .. "=" .. maybe_quote(value))
+    end
+    if sorted then table.sort(strs) end
     return "{" .. table.concat(strs, " ") .. "}"
 end
 
 function methods:clear()
     self.items_ = {}
-    self.size_ = 0
 end
 
--- values = map:values()
--- for _, value in ipairs(values) do ... end -- is faster than map:iter()
-function methods:iter()
-    --    local i = 0
-    --    return function()
-    --        i = i + 1
-    --        return self.items_[i]
-    --    end
+function methods:iter(sorted)
+    local keys = self:keys(sorted)
+    local i = 0
+    return function()
+        i = i + 1
+        local key = keys[i]
+        return key, self.items_[key]
+    end
 end
 
 function methods:keys(sorted)
-    --    return self.items_
+    local keys = {}
+    for key in pairs(self.items_) do
+        table.insert(keys, key)
+    end
+    if sorted then table.sort(keys) end
+    return keys
 end
 
 function methods:values(sorted)
-    --    return self.items_
+    local values = {}
+    if sorted then
+        local keys = self:keys(sorted)
+        for _, key in ipairs(keys) do
+            table.insert(values, self.items_[key])
+        end
+    else
+        for _, value in pairs(self.items_) do
+            table.insert(values, value)
+        end
+    end
+    return values
 end
 
 local meta = { __index = methods }
@@ -94,22 +91,20 @@ function meta:__tostring()
     return self:tostring()
 end
 
-function meta:__len()
-    return #self.items_
-end
-
 function meta:__eq(map)
-    if #self.items_ ~= #map then return false end
-    --    for i = 1, #self.items_ do
-    --        if self.items_[i] ~= map.items_[i] then return false end
-    --    end
+    local mykeys = self:keys(true)
+    local theirkeys = map:keys(true)
+    if #mykeys ~= #theirkeys then return false end
+    for i, key in ipairs(mykeys) do
+        if mykeys[i] ~= theirkeys[i] then return false end
+        if self.items_[key] ~= map:get(key) then return false end
+    end
     return true
 end
 
-Map = function(...)
-    local self = { items_ = {}, size_ = 0 }
+Map = function()
+    local self = { items_ = {} }
     setmetatable(self, meta)
-    self:append(...)
     return self
 end
 
