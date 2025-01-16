@@ -1,5 +1,4 @@
 # TODO
-# - Map replace get() with __index & set() with __newindex?
 # - could I adapt clone() to do a better dump()?
 
 rocks.lua
