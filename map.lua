@@ -20,7 +20,7 @@ end
 
 function methods:remove(key)
     local value = self.items_[key]
-    if value then self.items_[key] = nil end
+    if value ~= nil then self.items_[key] = nil end
     return value
 end
 
