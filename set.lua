@@ -57,21 +57,21 @@ function methods:symmetric_difference(set)
     return difference
 end
 
-function methods:is_disjoint(set)
+function methods:isdisjoint(set)
     for value in pairs(self.values_) do
         if set:contains(value) then return false end
     end
     return true
 end
 
-function methods:is_subset(set)
+function methods:issubset(set)
     for value in pairs(self.values_) do
         if not set:contains(value) then return false end
     end
     return true
 end
 
-function methods:is_superset(set) return set:is_subset(self) end
+function methods:issuperset(set) return set:issubset(self) end
 
 function methods:random_value()
     local index = math.random(1, self.size_)
