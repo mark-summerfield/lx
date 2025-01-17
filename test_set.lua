@@ -1,8 +1,8 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local Lx = require("lx")
 local Set = require("set")
+local tx = require("tx")
 local check, report = require("check").checker()
 
 local even = Set(2, 4, 6, 8)
@@ -31,7 +31,7 @@ check("{}" == e2:tostring(true), e2)
 e2 = Set(1, 2, 3, 4, 5)
 check(not e2:isempty())
 check("{1 2 3 4 5}" == e2:tostring(true), e2)
-e2 = Lx.clone(even)
+e2 = tx.clone(even)
 check(not e2:isempty())
 check("{10 2 4 6 8}" == e2:tostring(true), e2)
 check(#e2 == 5, 5)

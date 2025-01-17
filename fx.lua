@@ -6,45 +6,45 @@ package.cpath = package.cpath .. ";" .. ROCKS_SO_PATH
 
 local lfs = require("lfs")
 
-local Fs = {}
+local fx = {}
 
 local function errmsg(fname, what, filename)
     what = what == "r" and "read" or "write"
     return fname .. "() failed to " .. what .. ' "' .. filename .. '"'
 end
 
-function Fs.cwd()
+function fx.cwd()
     return lfs.currentdir() -- io.popen("pwd"):read()
 end
 
-function Fs.chdir(dirname)
+function fx.chdir(dirname)
     return lfs.chdir(dirname)
 end
 
-function Fs.mkdir(dirname)
+function fx.mkdir(dirname)
     return lfs.mkdir(dirname)
 end
 
-function Fs.chmod(filename, mode) -- Unix-specific
+function fx.chmod(filename, mode) -- Unix-specific
     os.execute("chmod " .. mode .. ' "' .. filename .. '"')
 end
 
-function Fs.copyfile(source, dest)
+function fx.copyfile(source, dest)
     local infile <close> =
-        assert(io.open(source, "rb"), errmsg("Fs.copy", "r", source))
+        assert(io.open(source, "rb"), errmsg("fx.copy", "r", source))
     local oufile <close> =
-        assert(io.open(dest, "wb"), errmsg("Fs.copy", "w", dest))
+        assert(io.open(dest, "wb"), errmsg("fx.copy", "w", dest))
     oufile:write(infile:read("all"))
 end
 
-function Fs.writefile(filename, text)
+function fx.writefile(filename, text)
     local file <close> = assert(
         io.open(filename, "w"),
-        errmsg("Fs.writefile", "w", filename)
+        errmsg("fx.writefile", "w", filename)
     )
     file:write(text)
 end
 
 -- for remove use os.remove(filename)
 
-return Fs
+return fx

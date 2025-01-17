@@ -2,8 +2,8 @@
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
 local List = require("list")
-local Lx = require("lx")
 local Set = require("set")
+local tx = require("tx")
 local check, report = require("check").checker()
 local SHOWTIMES = false
 
@@ -15,7 +15,6 @@ check(not b:isempty())
 check(tostring(b) == "[12 6 1 0 1 2 4 8 16]")
 local c = List("a", "b", "c or d")
 check(tostring(c) == "[«a» «b» «c or d»]")
-check(a:typeof() == "List")
 check(#a == 0, a)
 check(a:isempty())
 check(#b == 9, b)
@@ -68,7 +67,7 @@ check(tostring(b) == "[0 1 1 4 4 6 7 8 12 14 16]")
 x = b:remove(5)
 check(x == 4)
 check(tostring(b) == "[0 1 1 4 6 7 8 12 14 16]")
-local d = Lx.clone(b)
+local d = tx.clone(b)
 check(tostring(d) == "[0 1 1 4 6 7 8 12 14 16]")
 check(b == d)
 d:append(17)

@@ -1,13 +1,12 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
-local Lx = require("lx")
 local Map = require("map")
+local tx = require("tx")
 local check, report = require("check").checker()
 
 local m1 = Map()
 check(m1:typeof() == "Map")
-check(Lx.typeof(m1) == "Map")
 check(tostring(m1) == "{}")
 check(m1:isempty())
 m1:set("C or D", 4)
@@ -26,7 +25,7 @@ check(m1:get("G") == 8)
 check(m1:get("A") == -1)
 check(m1:remove("X") == nil)
 check(m1:remove("A") == -1)
-local m2 = Lx.clone(m1)
+local m2 = tx.clone(m1)
 check(m2 == m1)
 check(not m2:isempty())
 check(m2:tostring(true) == "{«B»=2 «C or D»=4 «G»=8}")
