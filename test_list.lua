@@ -47,9 +47,7 @@ check(b:find(1) == 2)
 check(b:rfind(1) == 3)
 check(b:find(8) == 6)
 check(b:find(18) == nil)
-local function hitolo(x, y)
-    return x > y
-end
+local function hitolo(x, y) return x > y end
 b:sort(hitolo)
 check(b:find(1) == 7)
 check(b:rfind(1) == 8)

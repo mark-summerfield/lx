@@ -1,6 +1,3 @@
-# TODO
-# - could I adapt clone() to do a better dump()?
-
 rocks.lua
 
 lx.lua
@@ -8,13 +5,12 @@ fx.lua
 sx.lua
 tx.lua
 
+set.lua
 list.lua
 map.lua
-set.lua
 
 test_sx.lua
 test_tx.lua
-
 test_list.lua
 test_map.lua
 test_set.lua

@@ -31,17 +31,11 @@ function sx.insert(s, pos, t) -- insert t into s at pos
     return s:sub(1, pos - 1) .. t .. s:sub(pos)
 end
 
-function sx.trim(s)
-    return s:match("^%s*(.-)%s*$")
-end
+function sx.trim(s) return s:match("^%s*(.-)%s*$") end
 
-function sx.trimright(s)
-    return s:match("^(.-)%s*$")
-end
+function sx.trimright(s) return s:match("^(.-)%s*$") end
 
-function sx.trimleft(s)
-    return s:match("^%s*(.-)$")
-end
+function sx.trimleft(s) return s:match("^%s*(.-)$") end
 
 function sx.clean(s) -- trim whitespace and normalize internal whitespace
     return sx.trim(s:gsub("%s+", " "))

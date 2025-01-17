@@ -17,13 +17,9 @@ function fx.cwd()
     return lfs.currentdir() -- io.popen("pwd"):read()
 end
 
-function fx.chdir(dirname)
-    return lfs.chdir(dirname)
-end
+function fx.chdir(dirname) return lfs.chdir(dirname) end
 
-function fx.mkdir(dirname)
-    return lfs.mkdir(dirname)
-end
+function fx.mkdir(dirname) return lfs.mkdir(dirname) end
 
 function fx.chmod(filename, mode) -- Unix-specific
     os.execute("chmod " .. mode .. ' "' .. filename .. '"')

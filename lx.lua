@@ -3,16 +3,21 @@
 
 local lx = {}
 
-function lx.fprintf(file, fmt, ...)
-    file:write(string.format(fmt, ...))
-end
+function lx.fprintf(file, fmt, ...) file:write(string.format(fmt, ...)) end
 
-function lx.printf(fmt, ...)
-    lx.fprintf(io.stdout, fmt, ...)
-end
+function lx.printf(fmt, ...) io.stdout:write(string.format(fmt, ...)) end
 
-function lx.sprintf(fmt, ...)
-    return string.format(fmt, ...)
+function lx.sprintf(fmt, ...) return string.format(fmt, ...) end
+
+function lx.typeof(x)
+    local t = type(x)
+    if t == "table" then
+        local ok, name = pcall(x.typeof)
+        if ok then return name end
+    elseif t == "number" then
+        return math.type(x)
+    end
+    return t
 end
 
 function lx.timeit(name, func)
@@ -55,8 +60,10 @@ local function dump_tbl(tbl, indent, done)
 end
 
 function lx.dump(x)
-    local kind = type(x)
-    if kind == "table" then
+    local kind = lx.typeof(x)
+    if kind == "List" or kind == "Map" or kind == "Set" then
+        return x:tostring(true)
+    elseif kind == "table" then
         return dump_tbl(x)
     elseif kind == "string" then
         return x

@@ -5,21 +5,13 @@ local Map
 
 local methods = {}
 
-function methods.typeof()
-    return "Map"
-end
+function methods.typeof() return "Map" end
 
-function methods:get(key)
-    return self.items_[key]
-end
+function methods:get(key) return self.items_[key] end
 
-function methods:set(key, value)
-    self.items_[key] = value
-end
+function methods:set(key, value) self.items_[key] = value end
 
-function methods:isempty()
-    return next(self.items_) == nil
-end
+function methods:isempty() return next(self.items_) == nil end
 
 function methods:remove(key)
     local value = self.items_[key]
@@ -47,9 +39,7 @@ function methods:tostring(sorted)
     return "{" .. table.concat(strs, " ") .. "}"
 end
 
-function methods:clear()
-    self.items_ = {}
-end
+function methods:clear() self.items_ = {} end
 
 function methods:iter(sorted)
     local keys = self:keys(sorted)
@@ -87,9 +77,7 @@ end
 
 local meta = { __index = methods }
 
-function meta:__tostring()
-    return self:tostring()
-end
+function meta:__tostring() return self:tostring() end
 
 function meta:__eq(map)
     local mykeys = self:keys(true)

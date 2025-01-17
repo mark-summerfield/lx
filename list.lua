@@ -5,17 +5,11 @@ local List
 
 local methods = {}
 
-function methods.typeof()
-    return "List"
-end
+function methods.typeof() return "List" end
 
-function methods:isempty()
-    return next(self.values_) == nil
-end
+function methods:isempty() return next(self.values_) == nil end
 
-function methods:len()
-    return #self.values_
-end
+function methods:len() return #self.values_ end
 
 function methods:first()
     return #self.values_ > 0 and self.values_[1] or nil
@@ -43,16 +37,13 @@ function methods:rfind(value)
     return nil
 end
 
-function methods:contains(value)
-    return self:find(value) ~= nil
-end
+function methods:contains(value) return self:find(value) ~= nil end
 
-function methods:sort(cmp)
-    table.sort(self.values_, cmp)
-end
+function methods:sort(cmp) table.sort(self.values_, cmp) end
 
 function methods:random_value()
-    return #self.values_ > 0 and self.values_[math.random(1, #self.values_)]
+    return #self.values_ > 0
+            and self.values_[math.random(1, #self.values_)]
         or nil
 end
 
@@ -62,9 +53,7 @@ function methods:append(...)
     end
 end
 
-function methods:insert(pos, value)
-    table.insert(self.values_, pos, value)
-end
+function methods:insert(pos, value) table.insert(self.values_, pos, value) end
 
 function methods:set(pos, value)
     assert(pos <= #self.values_, "List.set() pos out of range")
@@ -96,9 +85,7 @@ function methods:tostring()
     return "[" .. table.concat(strs, " ") .. "]"
 end
 
-function methods:clear()
-    self.values_ = {}
-end
+function methods:clear() self.values_ = {} end
 
 -- values = list:values()
 -- for _, value in ipairs(values) do ... end -- is faster than list:iter()
@@ -110,19 +97,13 @@ function methods:iter()
     end
 end
 
-function methods:values()
-    return self.values_
-end
+function methods:values() return self.values_ end
 
 local meta = { __index = methods }
 
-function meta:__tostring()
-    return self:tostring()
-end
+function meta:__tostring() return self:tostring() end
 
-function meta:__len()
-    return #self.values_
-end
+function meta:__len() return #self.values_ end
 
 function meta:__eq(list)
     if #self.values_ ~= #list then return false end

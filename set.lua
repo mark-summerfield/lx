@@ -5,21 +5,13 @@ local Set
 
 local methods = {}
 
-function methods.typeof()
-    return "Set"
-end
+function methods.typeof() return "Set" end
 
-function methods:isempty()
-    return next(self.values_) == nil
-end
+function methods:isempty() return next(self.values_) == nil end
 
-function methods:len()
-    return self.size_
-end
+function methods:len() return self.size_ end
 
-function methods:contains(value)
-    return self.values_[value] == true
-end
+function methods:contains(value) return self.values_[value] == true end
 
 function methods:unite(set) -- use :add(a, b, c) to add individual values
     for value in pairs(set.values_) do
@@ -79,9 +71,7 @@ function methods:is_subset(set)
     return true
 end
 
-function methods:is_superset(set)
-    return set:is_subset(self)
-end
+function methods:is_superset(set) return set:is_subset(self) end
 
 function methods:random_value()
     local index = math.random(1, self.size_)
@@ -154,13 +144,9 @@ end
 
 local meta = { __index = methods }
 
-function meta:__tostring()
-    return self:tostring()
-end
+function meta:__tostring() return self:tostring() end
 
-function meta:__len()
-    return self.size_
-end
+function meta:__len() return self.size_ end
 
 function meta:__eq(set)
     if self.size_ ~= #set then return false end
@@ -174,17 +160,11 @@ function meta:__eq(set)
     return true
 end
 
-function meta:__band(set)
-    return self:intersection(set)
-end
+function meta:__band(set) return self:intersection(set) end
 
-function meta:__bor(set)
-    return self:union(set)
-end
+function meta:__bor(set) return self:union(set) end
 
-function meta:__sub(set)
-    return self:difference(set)
-end
+function meta:__sub(set) return self:difference(set) end
 
 Set = function(...)
     local self = { values_ = {}, size_ = 0 }

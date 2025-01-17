@@ -24,8 +24,6 @@ local function clone(orig, copies_) -- call with ONE table only!
     return copy
 end
 
-function tx.clone(tbl)
-    return clone(tbl)
-end
+function tx.clone(tbl) return clone(tbl) end
 
 return tx
