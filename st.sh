@@ -1,5 +1,5 @@
 clc {fx,list,lx,map,rocks,set,sx}.lua
-luacheck -q *.lua
+luacheck --no-max-line-length -q *.lua
 ./test_list.lua
 ./test_map.lua
 ./test_set.lua
