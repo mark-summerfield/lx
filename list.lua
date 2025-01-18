@@ -1,6 +1,9 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
+local ok, lx = pcall(require, "lx.lx")
+if not ok then lx = require("lx") end
+
 local List
 
 local methods = {}
@@ -55,11 +58,6 @@ end
 
 function methods:insert(pos, value) table.insert(self.values_, pos, value) end
 
-function methods:set(pos, value)
-    assert(pos <= #self.values_, "List.set() pos out of range")
-    self.values_[pos] = value
-end
-
 function methods:pop()
     return #self.values_ > 0 and self:remove(#self.values_) or nil
 end
@@ -74,13 +72,7 @@ end
 function methods:tostring()
     local strs = {}
     for _, value in ipairs(self.values_) do
-        local str
-        if type(value) == "string" then
-            str = "«" .. value .. "»"
-        else
-            str = tostring(value)
-        end
-        table.insert(strs, str)
+        table.insert(strs, lx.dump(value))
     end
     return "[" .. table.concat(strs, " ") .. "]"
 end
@@ -100,6 +92,11 @@ end
 function methods:values() return self.values_ end
 
 local meta = { __index = methods }
+
+function meta:__call(pos, value) -- local v = lst(pos) ; lst(pos, value)
+    if value == nil then return self.values_[pos] end
+    self.values_[pos] = value
+end
 
 function meta:__tostring() return self:tostring() end
 

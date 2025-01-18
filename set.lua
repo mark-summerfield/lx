@@ -1,6 +1,9 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
+local ok, lx = pcall(require, "lx.lx")
+if not ok then lx = require("lx") end
+
 local Set
 
 local methods = {}
@@ -104,13 +107,7 @@ end
 function methods:tostring(sorted)
     local strs = {}
     for value in pairs(self.values_) do
-        local str
-        if type(value) == "string" then
-            str = "«" .. value .. "»"
-        else
-            str = tostring(value)
-        end
-        table.insert(strs, str)
+        table.insert(strs, lx.dump(value))
     end
     if sorted then table.sort(strs) end
     return "{" .. table.concat(strs, " ") .. "}"

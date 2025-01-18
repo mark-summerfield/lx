@@ -108,7 +108,7 @@ f:add(1, 2, 3)
 check(f == Set(1, 2, 3, 8, 10))
 local seen = { a = 0, b = 0, c = 0, d = 0, e = 0, f = 0 }
 a = Set("a", "b", "c", "d", "e", "f")
-check(a:tostring(true) == "{«a» «b» «c» «d» «e» «f»}")
+check(a:tostring(true) == '{"a" "b" "c" "d" "e" "f"}')
 while true do
     local element = a:random_value()
     seen[element] = seen[element] + 1

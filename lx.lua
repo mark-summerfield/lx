@@ -27,6 +27,11 @@ function lx.timeit(name, func)
     lx.printf("%s %9.3f sec\n", name, t)
 end
 
+local function maybe_quote(x)
+    if type(x) == "string" then return lx.sprintf("%q", x) end
+    return tostring(x)
+end
+
 local function dump_tbl(tbl, indent, done)
     done = done or {}
     indent = indent or 0
@@ -41,14 +46,14 @@ local function dump_tbl(tbl, indent, done)
                 table.insert(strs, string.rep(" ", indent)) -- indent it
                 table.insert(strs, "}\n")
             elseif "number" == type(key) then
-                table.insert(strs, lx.sprintf('"%s"\n', tostring(value)))
+                table.insert(strs, maybe_quote(value) .. "\n")
             else
                 table.insert(
                     strs,
                     lx.sprintf(
-                        '%s = "%s"\n',
-                        tostring(key),
-                        tostring(value)
+                        "%s = %s\n",
+                        maybe_quote(key),
+                        maybe_quote(value)
                     )
                 )
             end
@@ -66,7 +71,7 @@ function lx.dump(x)
     elseif kind == "table" then
         return dump_tbl(x)
     elseif kind == "string" then
-        return x
+        return lx.sprintf("%q", x)
     elseif kind == "nil" then
         return tostring(nil)
     end
