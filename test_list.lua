@@ -137,5 +137,9 @@ for v in e:iter() do
     f = f + v
 end
 if SHOWTIMES then print(f, os.clock() - t) end
+local g = List(1, 2, 4, 8)
+local h = List(11, 13, 15)
+g:append_list(h)
+check(tostring(g) == "[1 2 4 8 11 13 15]")
 
 report("List")

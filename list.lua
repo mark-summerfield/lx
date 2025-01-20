@@ -56,6 +56,12 @@ function methods:append(...)
     end
 end
 
+function methods:append_list(list)
+    for _, value in ipairs(list.values_) do
+        table.insert(self.values_, value)
+    end
+end
+
 function methods:set(pos, value) self.values_[pos] = value end
 
 function methods:insert(pos, value) table.insert(self.values_, pos, value) end
