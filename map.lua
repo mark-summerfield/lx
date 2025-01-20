@@ -12,6 +12,10 @@ function methods.typeof() return "Map" end
 
 function methods:isempty() return next(self.items_) == nil end
 
+function methods:get(key) return self.items_[key] end
+
+function methods:set(key, value) self.items_[key] = value end
+
 function methods:remove(key)
     local value = self.items_[key]
     if value ~= nil then self.items_[key] = nil end
@@ -71,11 +75,6 @@ end
 
 local meta = { __index = methods }
 
-function meta:__call(key, value) -- local v = map(key) ; map(key, value)
-    if value == nil then return self.items_[key] end
-    self.items_[key] = value
-end
-
 function meta:__tostring() return self:tostring() end
 
 function meta:__eq(map)
@@ -84,7 +83,7 @@ function meta:__eq(map)
     if #mykeys ~= #theirkeys then return false end
     for i, key in ipairs(mykeys) do
         if mykeys[i] ~= theirkeys[i] then return false end
-        if self.items_[key] ~= map(key) then return false end
+        if self.items_[key] ~= map:get(key) then return false end
     end
     return true
 end

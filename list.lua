@@ -56,6 +56,8 @@ function methods:append(...)
     end
 end
 
+function methods:set(pos, value) self.values_[pos] = value end
+
 function methods:insert(pos, value) table.insert(self.values_, pos, value) end
 
 function methods:pop()
@@ -92,11 +94,6 @@ end
 function methods:values() return self.values_ end
 
 local meta = { __index = methods }
-
-function meta:__call(pos, value) -- local v = lst(pos) ; lst(pos, value)
-    if value == nil then return self.values_[pos] end
-    self.values_[pos] = value
-end
 
 function meta:__tostring() return self:tostring() end
 
