@@ -37,5 +37,7 @@ check(sx.isin("cat", "dog", "pie", "cat"))
 check(not sx.isin("cap", "dog", "pie", "cat"))
 check(sx.isin("cat", { "dog", "pie", "cat" }))
 check(not sx.isin("cap", { "dog", "pie", "cat" }))
+local line = "    LET A=0"
+check(sx.trim(line) == "LET A=0")
 
 report("sx")
