@@ -1,6 +1,7 @@
 #!/usr/bin/env lua
 -- Copyright © 2025 Mark Summerfield. All rights reserved.
 
+local lx = require("lx")
 local sx = require("sx")
 local check, report = require("check").checker()
 
@@ -39,5 +40,9 @@ check(sx.isin("cat", { "dog", "pie", "cat" }))
 check(not sx.isin("cap", { "dog", "pie", "cat" }))
 local line = "    LET A=0"
 check(sx.trim(line) == "LET A=0")
+local a = sx.chars("One € … two!")
+local b =
+    { "O", "n", "e", " ", "€", " ", "…", " ", "t", "w", "o", "!" }
+check(lx.dump(a) == lx.dump(b))
 
 report("sx")

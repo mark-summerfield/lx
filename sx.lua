@@ -53,4 +53,12 @@ function sx.replace(s, old, new)
     return s
 end
 
+function sx.chars(s)
+    local chars = {}
+    for _, c in utf8.codes(s) do
+        table.insert(chars, utf8.char(c))
+    end
+    return chars
+end
+
 return sx
