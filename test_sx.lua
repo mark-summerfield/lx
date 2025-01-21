@@ -45,4 +45,8 @@ local b =
     { "O", "n", "e", " ", "€", " ", "…", " ", "t", "w", "o", "!" }
 check(lx.dump(a) == lx.dump(b))
 
+-- for pos, c in utf8.codes("One € … two!") do
+--     print(pos, utf8.char(c))
+-- end
+
 report("sx")
